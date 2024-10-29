@@ -15,10 +15,11 @@ class ProductDB {
         $statement->closeCursor();
     
         foreach ($rows as $row) {
-            $product = new Product($category,
-                                   $row['productCode'],
-                                   $row['productName'],
-                                   $row['listPrice']);
+            $product = new Product();
+            $product->setCategory($category);
+            $product->setCode($row['productCode']);
+            $product->setName($row['productName']);
+            $product->setPrice($row['listPrice']);
             $product->setId($row['productID']);
             $products[] = $product;
         }
@@ -36,10 +37,11 @@ class ProductDB {
         $statement->closeCursor();
     
         $category = CategoryDB::getCategory($row['categoryID']);
-        $product = new Product($category,
-                               $row['productCode'],
-                               $row['productName'],
-                               $row['listPrice']);
+        $product = new Product();
+        $product->setCategory($category);
+        $product->setCode($row['productCode']);
+        $product->setName($row['productName']);
+        $product->setPrice($row['listPrice']);
         $product->setID($row['productID']);
         return $product;
     }
