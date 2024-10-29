@@ -2,11 +2,12 @@
 class Product {
     private $category, $id, $code, $name, $price;
 
-    public function __construct($category, $code, $name, $price) {
-        $this->category = $category;
-        $this->code = $code;
-        $this->name = $name;
-        $this->price = $price;
+    public function __construct() {
+        $this->category = NULL;
+        $this->id = 0;
+        $this->code = '';
+        $this->name = '';
+        $this->price = 0;
     }
 
     public function getCategory() {
