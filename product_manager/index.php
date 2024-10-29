@@ -21,8 +21,9 @@ if ($action == 'list_products') {
     }
 
     // Get product and category data
-    $current_category = CategoryDB::getCategory($category_id);
-    $categories = CategoryDB::getCategories();
+    $categoryDB = new CategoryDB();
+    $current_category = $categoryDB->getCategory($category_id);
+    $categories = $categoryDB->getCategories();
     $products = ProductDB::getProductsByCategory($category_id);
 
     // Display the product list
@@ -40,7 +41,8 @@ if ($action == 'list_products') {
     // Display the Product List page for the current category
     header("Location: .?category_id=$category_id");
 } else if ($action == 'show_add_form') {
-    $categories = CategoryDB::getCategories();
+    $categoryDB = new CategoryDB();
+    $categories = $categoryDB->getCategories();
     include('product_add.php');
 } else if ($action == 'add_product') {
     $category_id = filter_input(INPUT_POST, 'category_id', 
@@ -53,7 +55,8 @@ if ($action == 'list_products') {
         $error = "Invalid product data. Check all fields and try again.";
         include('../errors/error.php');
     } else {
-        $current_category = CategoryDB::getCategory($category_id);
+        $categoryDB = new CategoryDB();
+        $current_category = $categoryDB->getCategory($category_id);
         $product = new Product();
         $product->setCategory($current_category);
         $product->setCode($code);

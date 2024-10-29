@@ -3,7 +3,8 @@ class ProductDB {
     public static function getProductsByCategory($category_id) {
         $db = Database::getDB();
 
-        $category = CategoryDB::getCategory($category_id);
+        $categoryDB = new CategoryDB();
+        $category = $categoryDB->getCategory($category_id);
 
         $query = 'SELECT * FROM products
                   WHERE products.categoryID = :category_id
@@ -36,7 +37,8 @@ class ProductDB {
         $row = $statement->fetch();
         $statement->closeCursor();
     
-        $category = CategoryDB::getCategory($row['categoryID']);
+        $categoryDB = new CategoryDB();
+        $category = $categoryDB->getCategory($row['categoryID']);
         $product = new Product();
         $product->setCategory($category);
         $product->setCode($row['productCode']);
